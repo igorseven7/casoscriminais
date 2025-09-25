@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Investigação Criminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-crime {
+            font-family: 'Special Elite', cursive;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .quiz-question {
+            display: none;
+        }
+        .quiz-question.active {
+            display: block;
+        }
+        .confidential-stamp {
+            position: absolute;
+            font-family: 'Special Elite', cursive;
+            color: #ef4444; /* red-500 */
+            border: 3px solid #ef4444;
+            padding: 0.25rem 0.5rem;
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+        .crime-tape {
+            background-color: #facc15; /* yellow-400 */
+            color: black;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            transform: rotate(-2deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+        .crime-tape-text {
+            animation: scroll 10s linear infinite;
+            display: inline-block;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .bullet-hole {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            border: 2px solid #111;
+            box-shadow: 0 0 5px rgba(0,0,0,0.8) inset, 0 0 1px #fff;
+        }
+    </style>
+</head>
+<body class="bg-zinc-900 text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl mx-auto bg-zinc-800 rounded-lg shadow-2xl shadow-red-900/20 overflow-hidden">
+
+        <!-- ETAPA 1: Apresentação -->
+        <div id="step-1" class="step active p-8 md:p-12 text-center">
+            <h1 class="font-crime text-3xl md:text-4xl text-yellow-400 mb-4">ENCONTRE O CASO CRIMINAL IDEAL PARA VOCÊ</h1>
+            <p class="mb-6 text-zinc-300">Através de um rápido quiz de perfil, vamos descobrir o caso perfeito para o seu estilo de detetive. Suas características e instintos te guiarão.</p>
+            <img src="https://imgur.com/gBIKZMv.png" alt="[Imagem de uma cena de crime com uma lupa em destaque]" class="rounded-md mb-8 w-full object-cover shadow-lg">
+            <p class="mb-8 text-zinc-300">Responda 5 perguntas e, ao final, revelaremos o desafio que mais combina com você.</p>
+            <button onclick="nextStep()" class="w-full bg-yellow-400 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
+                COMEÇAR O QUIZ
+            </button>
+        </div>
+
+        <!-- ETAPA 2: Quiz -->
+        <div id="step-2" class="step p-8 md:p-12">
+            <div id="quiz-container">
+                <!-- Pergunta 1 -->
+                <div class="quiz-question active">
+                    <p class="text-center text-yellow-400 mb-2 font-bold">Pergunta 1 de 5</p>
+                    <h2 class="text-xl md:text-2xl text-center mb-8">Você já se aventurou em algum jogo de investigação criminal antes?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Sim, vários! Sou veterano(a).</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Alguns, sou fã do gênero.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Um ou dois, por curiosidade.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Não, será minha primeira vez.</button>
+                    </div>
+                </div>
+                <!-- Pergunta 2 -->
+                <div class="quiz-question">
+                    <p class="text-center text-yellow-400 mb-2 font-bold">Pergunta 2 de 5</p>
+                    <h2 class="text-xl md:text-2xl text-center mb-8">Qual tipo de mistério mais te atrai para desvendar?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Um assassinato cheio de reviravoltas.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Uma fraude financeira complexa.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Um desaparecimento misterioso.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Um roubo de arte valiosa.</button>
+                    </div>
+                </div>
+                <!-- Pergunta 3 -->
+                <div class="quiz-question">
+                    <p class="text-center text-yellow-400 mb-2 font-bold">Pergunta 3 de 5</p>
+                    <h2 class="text-xl md:text-2xl text-center mb-8">A investigação inclui fotos explícitas da cena do crime. Como você reage?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Analiso tudo. Detalhes são cruciais.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Olho apenas o necessário para as pistas.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Prefiro focar nos relatórios e depoimentos.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Sinto desconforto e evitaria se possível.</button>
+                    </div>
+                </div>
+                 <!-- Pergunta 4 -->
+                 <div class="quiz-question">
+                    <p class="text-center text-yellow-400 mb-2 font-bold">Pergunta 4 de 5</p>
+                    <h2 class="text-xl md:text-2xl text-center mb-8">Você encontra várias pistas: um depoimento, uma digital e um bilhete. O que faz primeiro?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Busco conexões entre todas elas.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Analiso cada prova de forma isolada.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Foco na prova que parece mais confiável.</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">Sigo a intuição sobre a mais importante.</button>
+                    </div>
+                </div>
+                 <!-- Pergunta 5 -->
+                 <div class="quiz-question">
+                    <p class="text-center text-yellow-400 mb-2 font-bold">Pergunta 5 de 5</p>
+                    <h2 class="text-xl md:text-2xl text-center mb-8">Qual frase define melhor seu estilo de detetive?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">"Os fatos não mentem."</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">"Toda história tem dois lados."</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">"A intuição é uma arma poderosa."</button>
+                        <button onclick="selectAnswer()" class="p-4 bg-zinc-700 rounded-lg hover:bg-yellow-400 hover:text-black transition-all">"A pressa é inimiga da perfeição."</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ETAPA 3: Texto Persuasivo -->
+        <div id="step-3" class="step p-8 md:p-12 text-center">
+             <h1 class="font-crime text-3xl md:text-4xl text-yellow-400 mb-4">COMO FUNCIONA O JOGO?</h1>
+             <div class="text-left mb-8 text-zinc-300 space-y-4">
+                 <p>Ao receber seu caso, você terá acesso a um dossiê digital completo, organizado em três pastas para guiar sua investigação:</p>
+                 <ul class="list-none space-y-3 pl-2">
+                     <li><span class="font-bold text-yellow-400">PASTA 1:</span> Contém os arquivos dos envolvidos e os boletins de ocorrência para você conhecer os personagens.</li>
+                     <li><span class="font-bold text-yellow-400">PASTA 2:</span> Reúne os depoimentos detalhados e as fotos de cada um, onde as contradições podem surgir.</li>
+                     <li><span class="font-bold text-yellow-400">PASTA 3:</span> Aprofunda nas provas técnicas, com grampos telefônicos, relatórios de torres de celular e arquivos de GPS.</li>
+                 </ul>
+                 <p class="pt-2">Sua missão é analisar tudo para apontar o culpado. Para confirmar, você terá acesso a dois gabaritos: a <strong>denúncia do Ministério Público</strong> e a <strong>sentença final do juiz</strong>.</p>
+             </div>
+             <img src="https://i.imgur.com/0iULCpR.png" alt="[Imagem de um arquivo de caso criminal com um carimbo de 'Confidencial']" class="rounded-md mb-8 w-full object-cover shadow-lg">
+             <button onclick="nextStep()" class="w-full bg-yellow-400 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
+                REVELAR MEU CASO
+            </button>
+        </div>
+        
+        <!-- ETAPA 4: Resultado e Venda -->
+        <div id="step-4" class="step">
+            <div class="crime-tape">
+                <div class="crime-tape-text">
+                    <span>CENA DO CRIME - NÃO ULTRAPASSE - CENA DO CRIME - NÃO ULTRAPASSE - &nbsp;</span>
+                    <span>CENA DO CRIME - NÃO ULTRAPASSE - CENA DO CRIME - NÃO ULTRAPASSE - &nbsp;</span>
+                </div>
+            </div>
+            <div class="p-8 md:p-12 relative">
+                <div class="confidential-stamp top-4 right-4">CONFIDENCIAL</div>
+                <div class="bullet-hole top-10 left-5"></div>
+                <div class="bullet-hole top-20 right-10"></div>
+                
+                <div class="flex items-center justify-center mb-6">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-shield-check text-yellow-400" viewBox="0 0 16 16">
+                        <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.61.61 0 0 0 .1-.025c.076-.023.174-.06.294-.118.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.95-1.095-2.16-1.75-2.837-1.855C9.552 1.29 8.642 1 8 1s-1.552.29-2.162.59zM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    <h2 class="font-crime text-2xl md:text-3xl text-yellow-400 ml-4">RESULTADO: DETETIVE DE ELITE</h2>
+                </div>
+                
+                <p class="text-center mb-6 text-zinc-300">Seu perfil analítico e sua atenção aos detalhes indicam que você está pronto. Seu primeiro caso oficial te aguarda.</p>
+                
+                <div class="bg-zinc-900 p-6 rounded-lg border border-red-500/50">
+                    <h3 class="font-bold text-xl text-center mb-2 text-red-500">CASO 01: O Assassinato da Vereadora Livia Andrade</h3>
+                    <p class="text-center text-sm text-zinc-400 mb-4">Uma morte misteriosa no coração do Rio de Janeiro. Empresários poderosos, rivais políticos e segredos profissionais. A verdade está enterrada em uma teia de mentiras. Você consegue encontrá-la?</p>
+                    
+                    <p class="text-center my-4 font-bold text-yellow-400">Receba acesso IMEDIATO e 100% digital a:</p>
+                    <ul class="text-center list-none mb-6 text-zinc-300">
+                        <li>✔️ Arquivos do caso em PDF</li>
+                        <li>✔️ Imagens das provas e da cena do crime</li>
+                        <li>✔️ Depoimentos transcritos de testemunhas</li>
+                    </ul>
+                    
+                    <div class="text-center my-6">
+                        <p class="text-zinc-400">De <s class="text-red-500">R$97,00</s></p>
+                        <p class="text-lg">Por apenas</p>
+                        <p class="text-5xl font-black text-yellow-400">R$19,00</p>
+                        <p class="font-bold text-red-500 animate-pulse">🔥 OFERTA VÁLIDA SOMENTE HOJE 🔥</p>
+                    </div>
+                    
+                    <a href="https://pay.kiwify.com.br/bJti7ul" target="_blank" class="w-full block text-center bg-yellow-400 text-black font-bold py-4 px-6 rounded-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105 text-xl">
+                        QUERO RESOLVER ESSE CRIME AGORA!
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Variáveis para controlar o estado do quiz
+        let currentStep = 1;
+        let currentQuestion = 0;
+        
+        // Seleciona todos os elementos de etapa e de pergunta
+        const steps = document.querySelectorAll('.step');
+        const questions = document.querySelectorAll('.quiz-question');
+
+        // Função para mostrar a etapa correta e esconder as outras
+        function showStep(stepNumber) {
+            steps.forEach(step => step.classList.remove('active'));
+            const nextStepElement = document.getElementById(`step-${stepNumber}`);
+            if (nextStepElement) {
+                nextStepElement.classList.add('active');
+            }
+        }
+
+        // Função para avançar para a próxima etapa (usada nos botões)
+        function nextStep() {
+            currentStep++;
+            showStep(currentStep);
+        }
+
+        // Função para mostrar a pergunta correta dentro do quiz
+        function showQuestion(questionIndex) {
+            questions.forEach(q => q.classList.remove('active'));
+            if (questions[questionIndex]) {
+                questions[questionIndex].classList.add('active');
+            }
+        }
+
+        // Função chamada quando uma resposta do quiz é selecionada
+        function selectAnswer() {
+            currentQuestion++;
+            // Se ainda houver perguntas, mostra a próxima
+            if (currentQuestion < questions.length) {
+                showQuestion(currentQuestion);
+            } else {
+                // Se o quiz acabou, avança para a próxima etapa principal
+                nextStep();
+            }
+        }
+        
+        // Garante que o quiz comece na primeira etapa quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(1);
+        });
+    </script>
+</body>
+</html>
+
+
